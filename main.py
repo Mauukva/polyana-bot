@@ -21,7 +21,7 @@ async def webhook(request: Request):
         # Команда /start
         if text == "/start":
             keyboard = [
-                [InlineKeyboardButton("🛏 Посмотреть номера", url="https://polyana-hotel.ru/hotel-rooms/"), InlineKeyboardButton("📝 Забронировать номер", url="https://polyana-hotel.ru/bronirovanie/")],
+                [InlineKeyboardButton("🛏 Посмотреть номера", url="https://polyana-hotel.ru/hotel-rooms/"), InlineKeyboardButton("📅 Забронировать номер", url="https://polyana-hotel.ru/bronirovanie/")],
                 [InlineKeyboardButton("🗺 Как добраться", callback_data="map")],
                 [InlineKeyboardButton("📞 Контакты", callback_data="contact")]
             ]
@@ -43,8 +43,7 @@ async def webhook(request: Request):
         # Команда /help
         elif text == "/help":
             keyboard = [
-                [InlineKeyboardButton("🛏 Посмотреть номера", url="https://polyana-hotel.ru/hotel-rooms/")],
-                [InlineKeyboardButton("📝 Забронировать номер", url="https://polyana-hotel.ru/bronirovanie/")],
+                [InlineKeyboardButton("🛏 Посмотреть номера", url="https://polyana-hotel.ru/hotel-rooms/"), InlineKeyboardButton("📅 Забронировать номер", url="https://polyana-hotel.ru/bronirovanie/")],
                 [InlineKeyboardButton("🗺 Как добраться", callback_data="map")],
                 [InlineKeyboardButton("📞 Контакты", callback_data="contact")]
             ]
@@ -100,10 +99,8 @@ async def webhook(request: Request):
         # Кнопка "Как добраться"
         elif callback_data == "map":
             keyboard = [
-                [InlineKeyboardButton("🚌 Общественный транспорт", url="https://yandex.kz/maps/ru/?ll=38.110555%2C44.538275&mode=routes&rtext=44.572021%2C38.090500~44.506698%2C38.136470&rtt=mt&ruri=ymapsbm1%3A%2F%2Forg%3Foid%3D1054482933~ymapsbm1%3A%2F%2Forg%3Foid%3D171223132081&z=13.62")],
-                [InlineKeyboardButton("🚗 Автомобиль", url="https://yandex.kz/maps/ru/?ll=38.114689%2C44.538643&mode=routes&rtext=44.572021%2C38.090500~44.506698%2C38.136470&rtt=auto&ruri=ymapsbm1%3A%2F%2Forg%3Foid%3D1054482933~ymapsbm1%3A%2F%2Forg%3Foid%3D171223132081&z=13.52")],
-                [InlineKeyboardButton("📍 На карте", url="https://yandex.kz/maps/org/polyana/171223132081/?from=mapframe&ll=38.136466%2C44.508011&source=mapframe&utm_source=mapframe&z=17")],
-                [InlineKeyboardButton("📞 Контакты", callback_data="contact")],
+                [InlineKeyboardButton("🚌 Общественный транспорт", url="https://yandex.kz/maps/ru/?ll=38.110555%2C44.538275&mode=routes&rtext=44.572021%2C38.090500~44.506698%2C38.136470&rtt=mt&ruri=ymapsbm1%3A%2F%2Forg%3Foid%3D1054482933~ymapsbm1%3A%2F%2Forg%3Foid%3D171223132081&z=13.62"), InlineKeyboardButton("🚗 Автомобиль", url="https://yandex.kz/maps/ru/?ll=38.114689%2C44.538643&mode=routes&rtext=44.572021%2C38.090500~44.506698%2C38.136470&rtt=auto&ruri=ymapsbm1%3A%2F%2Forg%3Foid%3D1054482933~ymapsbm1%3A%2F%2Forg%3Foid%3D171223132081&z=13.52")],
+                [InlineKeyboardButton("📍 На карте", url="https://yandex.kz/maps/org/polyana/171223132081/?from=mapframe&ll=38.136466%2C44.508011&source=mapframe&utm_source=mapframe&z=17"), InlineKeyboardButton("📞 Контакты", callback_data="contact")],
                 [InlineKeyboardButton("🏠 Главное меню", callback_data="basic_menu")]
             ]
             reply_markup = InlineKeyboardMarkup(keyboard)
@@ -122,8 +119,7 @@ async def webhook(request: Request):
         # Кнопка "Главное меню"
         elif callback_data == "basic_menu":
             keyboard = [
-                [InlineKeyboardButton("🛏 Посмотреть номера", url="https://polyana-hotel.ru/hotel-rooms/")],
-                [InlineKeyboardButton("📝 Забронировать номер", url="https://polyana-hotel.ru/bronirovanie/")],
+                [InlineKeyboardButton("🛏 Посмотреть номера", url="https://polyana-hotel.ru/hotel-rooms/"), InlineKeyboardButton("📅 Забронировать номер", url="https://polyana-hotel.ru/bronirovanie/")],
                 [InlineKeyboardButton("🗺 Как добраться", callback_data="map")],
                 [InlineKeyboardButton("📞 Контакты", callback_data="contact")]
             ]
