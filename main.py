@@ -1,5 +1,6 @@
 from fastapi import FastAPI, Request
 from telegram import Bot, InlineKeyboardButton, InlineKeyboardMarkup
+from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.constants import ParseMode
 import httpx
 import os
