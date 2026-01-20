@@ -16,12 +16,12 @@ async def webhook(request: Request):
         message = data["message"]
         chat_id = message["chat"]["id"]
         text = message.get("text", "")
+
         
         # Команда /start
         if text == "/start":
             keyboard = [
-                [InlineKeyboardButton("🛏 Посмотреть номера", url="https://polyana-hotel.ru/hotel-rooms/")],
-                [InlineKeyboardButton("📝 Забронировать номер", url="https://polyana-hotel.ru/bronirovanie/")],
+                [InlineKeyboardButton("🛏 Посмотреть номера", url="https://polyana-hotel.ru/hotel-rooms/"), InlineKeyboardButton("📝 Забронировать номер", url="https://polyana-hotel.ru/bronirovanie/")],
                 [InlineKeyboardButton("🗺 Как добраться", callback_data="map")],
                 [InlineKeyboardButton("📞 Контакты", callback_data="contact")]
             ]
