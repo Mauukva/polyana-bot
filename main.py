@@ -63,6 +63,8 @@ async def webhook(request: Request):
         
         # Текстовые запросы → отправляем в n8n
         else:
+                # Показываем "печатает..."
+            await bot.send_chat_action(chat_id=chat_id, action="typing")
             async with httpx.AsyncClient(timeout=30.0) as client:
                 response = await client.post(
                     N8N_WEBHOOK_URL,
