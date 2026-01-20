@@ -50,7 +50,7 @@ async def webhook(request: Request):
             reply_markup = InlineKeyboardMarkup(keyboard)
             await bot.send_photo(
                 chat_id=chat_id,
-                photo="https://polyana-hotel.ru/wp-content/uploads/2023/02/territorija-49.jpg",  # Замени на URL картинки
+                photo="https://polyana-hotel.ru/wp-content/uploads/2023/02/territorija-49.jpg",
                 caption='Я помогу с информацией об отеле "Поляна":\n'
                         '- Номера и цены\n'
                         '- Услуги (баня, бассейн, массаж)\n'
@@ -63,15 +63,27 @@ async def webhook(request: Request):
         
         # Текстовые запросы → отправляем в n8n
         else:
-                # Показываем "печатает..."
+            # Показываем "печатает..."
             await bot.send_chat_action(chat_id=chat_id, action="typing")
+            
             async with httpx.AsyncClient(timeout=30.0) as client:
                 response = await client.post(
                     N8N_WEBHOOK_URL,
                     json={"chat_id": chat_id, "user_message": text}
                 )
                 answer = response.json().get("text", "Произошла ошибка.")
-                await bot.send_message(chat_id=chat_id, text=answer)
+                
+                # Кнопка "Главное меню"
+                keyboard = [[InlineKeyboardButton("🏠 Главное меню", callback_data="basic_menu")]]
+                reply_markup = InlineKeyboardMarkup(keyboard)
+                
+                # Отправляем ответ с фото и кнопкой
+                await bot.send_photo(
+                    chat_id=chat_id,
+                    photo="https://polyana-hotel.ru/wp-content/uploads/2024/07/dsc05084-scaled.jpg",
+                    caption=answer,
+                    reply_markup=reply_markup
+                )
             return {"ok": True}
     
     # Обработка inline-кнопок
@@ -89,7 +101,7 @@ async def webhook(request: Request):
             reply_markup = InlineKeyboardMarkup(keyboard)
             await bot.send_photo(
                 chat_id=chat_id,
-                photo="https://polyana-hotel.ru/wp-content/uploads/2024/07/dsc05045-scaled.jpg",  # Замени на URL картинки
+                photo="https://polyana-hotel.ru/wp-content/uploads/2024/07/dsc05045-scaled.jpg",
                 caption='📞 Контакты Парк-отеля "Поляна"\n\n'
                         'Телефон: `+7(988) 311-11-99`\n'
                         'Email: `recreation-area-glade@yandex.ru`\n\n'
@@ -110,7 +122,7 @@ async def webhook(request: Request):
             reply_markup = InlineKeyboardMarkup(keyboard)
             await bot.send_photo(
                 chat_id=chat_id,
-                photo="https://polyana-hotel.ru/wp-content/uploads/2024/07/dsc05045-scaled.jpg",  # Замени на URL картинки
+                photo="https://polyana-hotel.ru/wp-content/uploads/2024/07/dsc05045-scaled.jpg",
                 caption='Адрес отеля "Поляна":\n'
                         '`г. Геленджик, п. Дивноморское, ул. Короленко, 1/1`\n\n'
                         'Или выбери:\n'
@@ -131,7 +143,7 @@ async def webhook(request: Request):
             reply_markup = InlineKeyboardMarkup(keyboard)
             await bot.send_photo(
                 chat_id=chat_id,
-                photo="https://polyana-hotel.ru/wp-content/uploads/2023/02/territorija-39.jpg",  # Замени на URL картинки
+                photo="https://polyana-hotel.ru/wp-content/uploads/2023/02/territorija-39.jpg",
                 caption='Готов помочь! 🏔\n'
                         'Расскажу о номерах, услугах, инфраструктуре и ценах. Что вас интересует?',
                 reply_markup=reply_markup
