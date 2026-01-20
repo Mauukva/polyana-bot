@@ -26,6 +26,9 @@ async def webhook(request: Request):
                 [InlineKeyboardButton("📞 Контакты", callback_data="contact")]
             ]
             reply_markup = InlineKeyboardMarkup(keyboard)
+
+            photo_url = "https://polyana-hotel.ru/wp-content/uploads/2024/07/dsc05048-scaled.jpg"  # прямая ссылка на изображение
+        
         await bot.send_photo(
             chat_id=chat_id,
             photo=photo_url,
