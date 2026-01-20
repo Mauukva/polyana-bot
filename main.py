@@ -18,27 +18,27 @@ async def webhook(request: Request):
         text = message.get("text", "")
 
         # Команда /start
-    if text == "/start":
-        keyboard = [
-            [InlineKeyboardButton("🛏 Посмотреть номера", url="https://polyana-hotel.ru/hotel-rooms/"), InlineKeyboardButton("📅 Забронировать номер", url="https://polyana-hotel.ru/bronirovanie/")],
-            [InlineKeyboardButton("🗺 Как добраться", callback_data="map")],
-            [InlineKeyboardButton("📞 Контакты", callback_data="contact")]
-        ]
-        reply_markup = InlineKeyboardMarkup(keyboard)
-        await bot.send_photo(
-            chat_id=chat_id,
-            photo="https://polyana-hotel.ru/wp-content/uploads/2024/07/dsc05048-scaled.jpg",
-            caption='Добро пожаловать в Парк-отель "Поляна"! 🏔\n\n'
-                    'Я — ваш виртуальный ассистент. Работаю 24/7 и отвечу на любые вопросы об отеле:\n'
-                    '🏠 Номера и коттеджи\n'
-                    '💰 Цены и акции\n'
-                    '🛁 Услуги (баня, бассейн, массаж)\n'
-                    '🎉 Развлечения и мероприятия\n'
-                    '📋 Правила и условия\n\n'
-                    'Просто напишите свой вопрос, и я помогу!',
-            reply_markup=reply_markup
-        )
-        return {"ok": True}
+        if text == "/start":
+            keyboard = [
+                [InlineKeyboardButton("🛏 Посмотреть номера", url="https://polyana-hotel.ru/hotel-rooms/"), InlineKeyboardButton("📅 Забронировать номер", url="https://polyana-hotel.ru/bronirovanie/")],
+                [InlineKeyboardButton("🗺 Как добраться", callback_data="map")],
+                [InlineKeyboardButton("📞 Контакты", callback_data="contact")]
+            ]
+            reply_markup = InlineKeyboardMarkup(keyboard)
+            await bot.send_photo(
+                chat_id=chat_id,
+                photo="https://polyana-hotel.ru/wp-content/uploads/2024/07/dsc05048-scaled.jpg",
+                caption='Добро пожаловать в Парк-отель "Поляна"! 🏔\n\n'
+                        'Я — ваш виртуальный ассистент. Работаю 24/7 и отвечу на любые вопросы об отеле:\n'
+                        '🏠 Номера и коттеджи\n'
+                        '💰 Цены и акции\n'
+                        '🛁 Услуги (баня, бассейн, массаж)\n'
+                        '🎉 Развлечения и мероприятия\n'
+                        '📋 Правила и условия\n\n'
+                        'Просто напишите свой вопрос, и я помогу!',
+                reply_markup=reply_markup
+            )
+            return {"ok": True}
         
         # Команда /help
         elif text == "/help":
