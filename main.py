@@ -1,6 +1,5 @@
 from fastapi import FastAPI, Request
 from telegram import Bot, InlineKeyboardButton, InlineKeyboardMarkup
-from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.constants import ParseMode
 import httpx
 import os
@@ -19,7 +18,7 @@ async def webhook(request: Request):
         text = message.get("text", "")
 
         
-        # Команда /start
+     # Команда /start
         if text == "/start":
             keyboard = [
                 [InlineKeyboardButton("🛏 Посмотреть номера", url="https://polyana-hotel.ru/hotel-rooms/"), InlineKeyboardButton("📅 Забронировать номер", url="https://polyana-hotel.ru/bronirovanie/")],
@@ -27,24 +26,18 @@ async def webhook(request: Request):
                 [InlineKeyboardButton("📞 Контакты", callback_data="contact")]
             ]
             reply_markup = InlineKeyboardMarkup(keyboard)
-
-            photo_url = "https://polyana-hotel.ru/wp-content/uploads/2024/07/dsc05048-scaled.jpg"  # прямая ссылка на изображение
-        
-        await bot.send_photo(
-            chat_id=chat_id,
-            photo=photo_url,
-            caption=(
-                'Добро пожаловать в Парк-отель "Поляна"! 🏔\n\n'
-                'Я — ваш виртуальный ассистент. Работаю 24/7 и отвечу на любые вопросы об отеле:\n'
-                '🏠 Номера и коттеджи\n'
-                '💰 Цены и акции\n'
-                '🛁 Услуги (баня, бассейн, массаж)\n'
-                '🎉 Развлечения и мероприятия\n'
-                '📋 Правила и условия\n\n'
-                'Просто напишите свой вопрос, и я помогу!'
-            ),
-            reply_markup=reply_markup
-        )
+            await bot.send_message(
+                chat_id=chat_id,
+                text='Добро пожаловать в Парк-отель "Поляна"! 🏔\n\n'
+                     'Я — ваш виртуальный ассистент. Работаю 24/7 и отвечу на любые вопросы об отеле:\n'
+                     '🏠 Номера и коттеджи\n'
+                     '💰 Цены и акции\n'
+                     '🛁 Услуги (баня, бассейн, массаж)\n'
+                     '🎉 Развлечения и мероприятия\n'
+                     '📋 Правила и условия\n\n'
+                     'Просто напишите свой вопрос, и я помогу!',
+                reply_markup=reply_markup
+            )
             return {"ok": True}
         
         # Команда /help
