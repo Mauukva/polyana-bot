@@ -7,6 +7,7 @@ import os
 app = FastAPI()
 bot = Bot(token=os.getenv("TELEGRAM_BOT_TOKEN"))
 N8N_WEBHOOK_URL = os.getenv("N8N_WEBHOOK_URL")
+MAX_MESSAGE_LENGTH = 400
 
 @app.post("/webhook")
 async def webhook(request: Request):
@@ -61,9 +62,23 @@ async def webhook(request: Request):
             )
             return {"ok": True}
         
-        # Текстовые запросы → отправляем в n8n
+        # Текстовые запросы → проверка длины → отправка в n8n
         else:
-            # Показываем "печатает..."
+            # Проверка длины сообщения
+            if len(text) > MAX_MESSAGE_LENGTH:
+                keyboard = [[InlineKeyboardButton("🏠 Главное меню", callback_data="basic_menu")]]
+                reply_markup = InlineKeyboardMarkup(keyboard)
+                
+                await bot.send_message(
+                    chat_id=chat_id,
+                    text="Ваше сообщение слишком длинное (более 400 символов).\n\n"
+                         "Пожалуйста, разбейте вопрос на несколько коротких сообщений "
+                         "или позвоните администратору: 8 (988) 311-11-99",
+                    reply_markup=reply_markup
+                )
+                return {"ok": True}
+            
+            # Если <= 400 символов → обрабатываем
             await bot.send_chat_action(chat_id=chat_id, action="typing")
             
             async with httpx.AsyncClient(timeout=30.0) as client:
@@ -90,7 +105,7 @@ async def webhook(request: Request):
     elif "callback_query" in data:
         callback = data["callback_query"]
         chat_id = callback["message"]["chat"]["id"]
-        message_id = callback["message"]["message_id"]  # ← Добавили message_id
+        message_id = callback["message"]["message_id"]
         callback_data = callback["data"]
         
         # Кнопка "Контакты"
